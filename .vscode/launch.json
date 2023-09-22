@@ -1,0 +1,15 @@
+{
+    "configurations":[
+        {
+            "type":"cortex-debug",
+            "request": "launch",
+            "servertype": "stutil",
+            "cwd": "./",
+            "executable": "firmware.elf",
+            "name": "Debug stutil STML4",
+            "device": "STM32L476",
+            "svdFile": "./libs/STM32L4x6.svd",
+
+        }
+    ]
+}
