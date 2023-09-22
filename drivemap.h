@@ -46,3 +46,11 @@ typedef struct
 
 // ##########################################   SysTick_Map   ##########################################
 
+#define SysTick_base 0xE000E010
+
+typedef struct
+{
+    volatile uint32_t CTRL, LOAD, VAL, CALIB;
+}SysTick_Access;
+
+#define SysTick ((SysTick_Access *) SysTick_base)

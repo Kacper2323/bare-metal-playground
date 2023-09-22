@@ -1,17 +1,11 @@
 #include "drivemap.h"
-//#include "irq_handlers.h"
-
-
-static void Ddelay(int n){
-  volatile int c = 0;
-    while(c < n){
-      c++;
-    }
-}
+#include "irq_handlers.h"
 
 
 int j = 0;
 int main(void){
+    SysTick->LOAD = 4000-1;
+    SysTick->CTRL |= 7U;
 
     RCC->AHB2ENR &= ~(1U);
     RCC->AHB2ENR |= 1;
@@ -25,11 +19,11 @@ int main(void){
 
     while(1){
 
-      Ddelay(99999);
+      Delay(500);
       GPIOA->ODR |= (1<<5);
       j = 0;
 
-      Ddelay(99999);
+      Delay(500);
       GPIOA->ODR &= ~(1U<<5);
       j = 0;
 
