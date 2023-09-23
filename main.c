@@ -1,32 +1,37 @@
-#include "drivemap.h"
+#include "main.h"
 #include "irq_handlers.h"
+#include "gpio.h"
 
-
-int j = 0;
 int main(void){
-    SysTick->LOAD = 4000-1;
-    SysTick->CTRL |= 7U;
 
-    RCC->AHB2ENR &= ~(1U);
-    RCC->AHB2ENR |= 1;
 
-    GPIOA->MODER &= ~(3U<<10);
-    GPIOA->MODER |= (1U<<10);
+    SysTick_Init();
 
-    GPIOA->PUPDR &= ~(3U<<10);
-    GPIOA->ODR &= ~(1U<<5);
-    // GPIOA->ODR |= (1<<5);
+    uint16_t setup = set_GPIO_INPUT | set_GPIO_NOPULL;
+    GPIO_Pin_Init(GPIOC, 13, setup);
+
+    setup = set_GPIO_OUTPUT | set_GPIO_NOPULL;
+    GPIO_Pin_Init(GPIOA, 5, setup);
+
+    GPIO_Write_pin(GPIOA, 5, 0);
 
     while(1){
 
-      Delay(500);
-      GPIOA->ODR |= (1<<5);
-      j = 0;
-
-      Delay(500);
-      GPIOA->ODR &= ~(1U<<5);
-      j = 0;
+      if( GPIO_Read_pin(GPIOC, 13) != 0)
+        GPIO_Write_pin(GPIOA, 5, 0);
+      else
+        GPIO_Write_pin(GPIOA, 5, 1);
 
     }
     return 0;
+}
+
+
+void ERROR_HANDLER(void){
+  while(1){};
+}
+
+void SysTick_Init(void){
+    SysTick->LOAD = 4000-1;
+    SysTick->CTRL |= 7U;
 }

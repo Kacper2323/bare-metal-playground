@@ -23,13 +23,13 @@ typedef struct
     volatile uint32_t AFRH;
     volatile uint32_t BRR;
     volatile uint32_t ASCR;
+    
 } GPIO_Access;
 
 #define GPIOA ((GPIO_Access*) GPIOA_BASE)
 #define GPIOB ((GPIO_Access*) GPIOB_BASE)
 #define GPIOC ((GPIO_Access*) GPIOC_BASE)
 #define GPIOD ((GPIO_Access*) GPIOD_BASE)
-
 
 // ##########################################     RCC     #########################################
 #define RCC_BASE 0x40021000UL

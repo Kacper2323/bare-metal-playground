@@ -1,9 +1,9 @@
 CFLAGS  ?=  -W -Wall -Wextra -Werror -Wundef -Wshadow -Wdouble-promotion \
             -Wformat-truncation -fno-common -Wconversion \
-            -g3 -O0 -ffunction-sections -fdata-sections -I. \
+            -g3 -O0 -ffunction-sections -fdata-sections -I. -I./include \
             -mcpu=cortex-m4 -mthumb -mfloat-abi=hard -mfpu=fpv4-sp-d16 $(EXTRA_CFLAGS)
-LDFLAGS ?= -Tlink.ld -nostartfiles -nostdlib --specs nano.specs -lc -lgcc -Wl,--gc-sections -Wl,-Map=$@.map
-SOURCES = main.c vec.s irq_handlers.c
+LDFLAGS ?= -T./base/link.ld -nostartfiles -nostdlib --specs nano.specs -lc -lgcc -Wl,--gc-sections -Wl,-Map=$@.map
+SOURCES = main.c ./base/vec.s ./src/irq_handlers.c ./src/gpio.c
 
 build: firmware.elf
 
@@ -15,6 +15,3 @@ firmware.bin: firmware.elf
 
 flash: firmware.bin
 	st-flash --reset write $< 0x8000000
-
-clean:
-	$(RM) firmware.*
