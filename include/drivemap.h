@@ -23,13 +23,13 @@ typedef struct
     volatile uint32_t AFRH;
     volatile uint32_t BRR;
     volatile uint32_t ASCR;
-    
+
 } GPIO_Access;
 
-#define GPIOA ((GPIO_Access*) GPIOA_BASE)
-#define GPIOB ((GPIO_Access*) GPIOB_BASE)
-#define GPIOC ((GPIO_Access*) GPIOC_BASE)
-#define GPIOD ((GPIO_Access*) GPIOD_BASE)
+#define GPIOA ((GPIO_Access *) GPIOA_BASE)
+#define GPIOB ((GPIO_Access *) GPIOB_BASE)
+#define GPIOC ((GPIO_Access *) GPIOC_BASE)
+#define GPIOD ((GPIO_Access *) GPIOD_BASE)
 
 // ##########################################     RCC     #########################################
 #define RCC_BASE 0x40021000UL
@@ -46,11 +46,32 @@ typedef struct
 
 // ##########################################   SysTick_Map   ##########################################
 
-#define SysTick_base 0xE000E010
+#define SysTick_base 0xE000E010UL
 
 typedef struct
 {
     volatile uint32_t CTRL, LOAD, VAL, CALIB;
+
 }SysTick_Access;
 
 #define SysTick ((SysTick_Access *) SysTick_base)
+
+// ######################################### USART #############################################
+
+#define USART1_BASE 0x40013800UL
+#define USART2_BASE 0x40004400UL
+#define USART3_BASE 0x40004800UL
+#define UART4_BASE  0x40004C00UL
+#define UART5_BASE  0x40005000UL
+
+typedef struct
+{
+    volatile uint32_t CR1, CR2, CR3, BRR, GTPR, RTOR, RQR, ISR, ICR, RDR, TDR;
+
+}UART_Access;
+
+#define UART1 ((UART_Access *) USART1_BASE)
+#define UART2 ((UART_Access *) USART2_BASE)
+#define UART3 ((UART_Access *) USART3_BASE)
+#define UART4 ((UART_Access *) UART4_BASE)
+#define UART5 ((UART_Access *) UART5_BASE)

@@ -3,7 +3,7 @@ CFLAGS  ?=  -W -Wall -Wextra -Werror -Wundef -Wshadow -Wdouble-promotion \
             -g3 -O0 -ffunction-sections -fdata-sections -I. -I./include \
             -mcpu=cortex-m4 -mthumb -mfloat-abi=hard -mfpu=fpv4-sp-d16 $(EXTRA_CFLAGS)
 LDFLAGS ?= -T./base/link.ld -nostartfiles -nostdlib --specs nano.specs -lc -lgcc -Wl,--gc-sections -Wl,-Map=$@.map
-SOURCES = main.c ./base/vec.s ./src/irq_handlers.c ./src/gpio.c
+SOURCES = main.c ./base/vec.s ./src/irq_handlers.c ./src/gpio.c ./src/usart.c ./src/sysmem.c
 
 build: firmware.elf
 
