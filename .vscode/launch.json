@@ -1,15 +1,20 @@
 {
     "configurations":[
+
         {
             "type":"cortex-debug",
             "request": "launch",
-            "servertype": "stutil",
+            "servertype": "openocd",
             "cwd": "./",
             "executable": "firmware.elf",
-            "name": "Debug stutil STML4",
+            "name": "Debug openocd STML4",
             "device": "STM32L476",
             "svdFile": "./libs/STM32L4x6.svd",
-
+            "configFiles": [
+                "/usr/share/openocd/scripts/interface/stlink.cfg",
+                "/usr/share/openocd/scripts/target/stm32l4x.cfg"
+            ],
         }
+
     ]
 }

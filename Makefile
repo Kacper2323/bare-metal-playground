@@ -10,8 +10,5 @@ build: firmware.elf
 firmware.elf: $(SOURCES)
 	arm-none-eabi-gcc $(SOURCES) $(CFLAGS) $(LDFLAGS) -o $@
 
-firmware.bin: firmware.elf
-	arm-none-eabi-objcopy -O binary $< $@
-
-flash: firmware.bin
-	st-flash --reset write $< 0x8000000
+flash: firmware.elf
+	openocd -f interface/stlink.cfg -f target/stm32l4x.cfg -c "program firmware.elf verify reset exit"
